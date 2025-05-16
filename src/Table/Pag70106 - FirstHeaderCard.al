@@ -70,7 +70,6 @@ page 70106 "First Header Card"
             }
         }
     }
-
     trigger OnOpenPage()
     begin
         Message('This is OnOpenPage trigger.');
