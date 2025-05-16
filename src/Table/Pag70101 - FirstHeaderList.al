@@ -9,7 +9,7 @@ page 70101 "First Header List"
     {
         area(Content)
         {
-            repeater(Group)
+            group(General)
             {
                 field("Document No."; Rec."Document No.")
                 {
@@ -20,13 +20,17 @@ page 70101 "First Header List"
                         Message('This is OnValidate of Document No.');
                     end;
                 }
+            }
+
+            group(CustomerInfo)
+            {
                 field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
-                        Message('This OnValidate of Customer No.');
+                        Message('This is OnValidate of Customer No.');
                     end;
                 }
 
@@ -34,12 +38,46 @@ page 70101 "First Header List"
                 {
                     ApplicationArea = All;
                 }
+            }
 
+            repeater(Financials)
+            {
                 field("Balance (LCY)"; Rec."Balance (LCY)")
                 {
                     ApplicationArea = All;
                 }
             }
+            /*      repeater(Group)
+                  {
+                      field("Document No."; Rec."Document No.")
+                      {
+                          ApplicationArea = All;
+
+                          trigger OnValidate()
+                          begin
+                              Message('This is OnValidate of Document No.');
+                          end;
+                      }
+                      field("Customer No."; Rec."Customer No.")
+                      {
+                          ApplicationArea = All;
+
+                          trigger OnValidate()
+                          begin
+                              Message('This OnValidate of Customer No.');
+                          end;
+                      }
+
+                      field("Customer Name"; Rec."Customer Name")
+                      {
+                          ApplicationArea = All;
+                      }
+
+                      field("Balance (LCY)"; Rec."Balance (LCY)")
+                      {
+                          ApplicationArea = All;
+                      }
+                  } */
         }
     }
 
