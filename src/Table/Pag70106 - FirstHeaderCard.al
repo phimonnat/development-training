@@ -34,6 +34,13 @@ page 70106 "First Header Card"
                 {
                     ApplicationArea = All;
                 }
+            }
+            group(Financials)
+            {
+                field("Balance (LCY)"; Rec."Balance (LCY)")
+                {
+                    ApplicationArea = All;
+                }
                 field("Total Amount"; Rec."Total Amount")
                 {
                     ApplicationArea = All;
