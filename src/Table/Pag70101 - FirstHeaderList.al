@@ -14,10 +14,20 @@ page 70101 "First Header List"
                 field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        Message('This is OnValidate of Document No.');
+                    end;
                 }
                 field("Customer No."; Rec."Customer No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        Message('This OnValidate of Customer No.');
+                    end;
                 }
 
                 field("Customer Name"; Rec."Customer Name")
@@ -41,7 +51,7 @@ page 70101 "First Header List"
             {
                 ApplicationArea = All;
                 Caption = 'Notify Customer';
-                //  Image = SendEmail;
+                Image = SendEmail;
 
                 trigger OnAction()
                 begin
