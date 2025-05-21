@@ -89,7 +89,7 @@ page 70101 "First Header List"
             {
                 ApplicationArea = All;
                 Caption = 'Notify Customer';
-                Image = SendEmail;
+                Image = Email;
 
                 trigger OnAction()
                 begin

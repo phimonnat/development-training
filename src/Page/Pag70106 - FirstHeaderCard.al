@@ -62,7 +62,7 @@ page 70106 "First Header Card"
             {
                 ApplicationArea = All;
                 Caption = 'Notify Customer';
-                Image = SendEmail;
+                Image = Email;
                 trigger OnAction()
                 begin
                     Message('Customer has been notified for Document %1.', Rec."Document No.");

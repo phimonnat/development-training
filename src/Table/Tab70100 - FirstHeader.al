@@ -40,6 +40,24 @@ table 70100 "First Header"
             CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)"
                 where("Customer No." = field("Customer No.")));
         }
+
+        field(6; "Description"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Description';
+        }
+
+        field(7; "My Option"; Enum "My Option")
+        {
+            Caption = 'My Option';
+            DataClassification = ToBeClassified;
+        }
+
+        field(8; "Document Type"; Enum "Sales Document Type")
+        {
+            Caption = 'Document Type';
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
