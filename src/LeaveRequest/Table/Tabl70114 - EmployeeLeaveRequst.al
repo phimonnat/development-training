@@ -31,12 +31,12 @@ table 70114 "Employee Leave Request"
         field(6; "Leave Type"; Option)
         {
             Caption = 'Leave Type';
-            OptionMembers = "Sick Leave","Vacation","Casual Leave"; // leave type
+            OptionMembers = "Sick Leave","Vacation","Casual Leave";
         }
         field(7; Status; Option)
         {
             Caption = 'Description';
-            OptionMembers = New,Pending,Approved,Rejected; // status option
+            OptionMembers = New,Pending,Approved,Rejected;
         }
         field(8; "Description"; Text[250])
         {
@@ -53,7 +53,7 @@ table 70114 "Employee Leave Request"
         // primary key setup
         key(PK; "Leave ID")
         {
-            Clustered = true;  // set primary key for fast search
+            Clustered = true;
         }
     }
 }

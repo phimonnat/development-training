@@ -9,12 +9,10 @@ page 70115 "Leave Requests Page"
 
     layout
     {
-        // layout setup
         area(Content)
         {
             repeater(Group)
             {
-                // field to display
                 field("Leave ID"; Rec."Leave ID")
                 {
                     ApplicationArea = All;
