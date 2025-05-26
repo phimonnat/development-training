@@ -51,14 +51,14 @@ table 70123 "LeaveRequests"
         {
             Caption = 'Status Changed Date';
         }
-        /*    field(11; "Description"; Text[250])
-            {
-                Caption = 'Description';
-            }
-            field(12; "User ID"; Code[50])
-            {
-                Caption = 'User ID';
-            } */
+        field(11; "Description"; Text[250])
+        {
+            Caption = 'Description';
+        }
+        field(12; "User ID"; Code[50])
+        {
+            Caption = 'User ID';
+        }
     }
 
     keys

@@ -5,7 +5,7 @@ page 70124 "Ex Leave Requests Page"
     Caption = 'Ex Leave Requests';
     UsageCategory = Lists;
     ApplicationArea = All;
-    Editable = false;
+    CardPageId = "Ex Leave Requests Card";
 
     layout
     {
@@ -41,14 +41,14 @@ page 70124 "Ex Leave Requests Page"
                 {
                     ApplicationArea = All;
                 }
-                /*   field(Description; Rec.Description)
-                   {
-                       ApplicationArea = All;
-                   }
-                  field("User ID"; Rec."User ID")
-                   {
-                       ApplicationArea = All;
-                   } */
+                field(Description; Rec.Description)
+                {
+                    ApplicationArea = All;
+                }
+                /*  field("User ID"; Rec."User ID")
+                  {
+                      ApplicationArea = All;
+                  } */
             }
         }
     }
