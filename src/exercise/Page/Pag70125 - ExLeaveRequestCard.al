@@ -22,6 +22,14 @@ page 70125 "Ex Leave Requests Card"
                 {
                     ApplicationArea = All;
                     TableRelation = Employees."Employee ID";
+
+                    trigger OnValidate()
+                    var
+                        Employee: Record "Employees";
+                    begin
+                        if Employee.Get(Rec."Employee ID") then
+                            Rec."Manager ID" := Employee."Manager ID";
+                    end;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
@@ -49,10 +57,10 @@ page 70125 "Ex Leave Requests Card"
                 {
                     ApplicationArea = All;
                 }
-                /* field("User ID"; Rec."User ID")
-                 {
-                     ApplicationArea = All;
-                 } */
+                /*field("User ID"; Rec."User ID")
+                {
+                    ApplicationArea = All;
+                }*/
                 field("Create At"; Rec."Create At")
                 {
                     ApplicationArea = All;
@@ -61,7 +69,7 @@ page 70125 "Ex Leave Requests Card"
                 field("Manager ID"; Rec."Manager ID")
                 {
                     ApplicationArea = All;
-                    TableRelation = Employees."Employee ID";
+                    Editable = false;
                 }
                 field("Status Changed Date"; Rec."Status Changed Date")
                 {

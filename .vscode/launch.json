@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Your own server",
             "request": "launch",
@@ -17,7 +18,9 @@
             "enableSqlInformationDebugger": true,
             "tenant": "default",
             "usePublicURLFromServer": true,
+           //"schemaUpdateMode": "recreate",
             "port":25014
+            
         }
     ]
 }

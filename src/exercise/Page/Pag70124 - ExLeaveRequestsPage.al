@@ -52,45 +52,4 @@ page 70124 "Ex Leave Requests Page"
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(Approve)
-            {
-                ApplicationArea = All;
-                Caption = 'Approve';
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-
-                trigger OnAction()
-                begin
-                    Rec.Status := Rec.Status::Approved;
-                    Rec."Status Changed Date" := CurrentDateTime;
-                    Rec.Modify();
-                    Message('Leave Request %1 has been approved.')
-                end;
-            }
-
-            action(Reject)
-            {
-                ApplicationArea = All;
-                Caption = 'Reject';
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-
-                trigger OnAction()
-                begin
-                    Rec.Status := Rec.Status::Rejected;
-                    Rec."Status Changed Date" := CurrentDateTime;
-                    Rec.Modify();
-                    Message('Leave Request %1 has been rejected.');
-                end;
-            }
-        }
-    }
-
 }

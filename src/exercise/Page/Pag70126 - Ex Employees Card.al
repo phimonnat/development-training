@@ -16,7 +16,7 @@ page 70126 "Ex Employees Card"
                 field("Employee ID"; Rec."Employee ID")
                 {
                     ApplicationArea = All;
-                    Editable = false; // AutoIncrement
+                    Editable = false;
                 }
                 field("First Name"; Rec."First Name")
                 {
@@ -38,16 +38,23 @@ page 70126 "Ex Employees Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Approval Rights"; Rec."Approval Rights")
+                field("Is Manager"; Rec."Is Manager")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        if Rec."Is Manager" = Rec."Is Manager"::Yes then
+                            Rec."Approval Rights" := Rec."Approval Rights"::None;
+                        CurrPage.Update();
+                    end;
                 }
                 field("Manager ID"; Rec."Manager ID")
                 {
                     ApplicationArea = All;
-                    TableRelation = Employees."Employee ID";
+                    TableRelation = Employees."Employee ID" where("Is Manager" = const("Yes"));
                 }
-                field("Is Manager"; Rec."Is Manager")
+                field("Approval Rights"; Rec."Approval Rights")
                 {
                     ApplicationArea = All;
                 }

@@ -29,18 +29,30 @@ table 70122 "Employees"
         {
             Caption = 'Department';
         }
-        field(7; "Approval Rights"; Text[100])
+        field(7; "Approval Rights"; Option)
         {
-            Caption = 'Approval Rights';
+            OptionMembers = "None","Full";
         }
         field(8; "Manager ID"; Integer)
         {
             Caption = 'Manager ID';
-            TableRelation = Employees."Employee ID";
+            TableRelation = Employees."Employee ID" where("Is Manager" = const("Yes"));
+
+            trigger OnValidate()
+            var
+                Employee: Record "Employees";
+            begin
+                if Rec."Manager ID" <> 0 then begin
+                    if not Employee.Get(Rec."Manager ID") then
+                        Error('Manager ID %1 does not exist.', Rec."Manager ID");
+                    if Employee."Is Manager" <> Employee."Is Manager"::Yes then
+                        Error('Selected Manager ID %1 is not a manager.', Rec."Manager ID");
+                end;
+            end;
         }
-        field(9; "Is Manager"; Boolean)
+        field(9; "Is Manager"; Option)
         {
-            Caption = 'Is Manager';
+            OptionMembers = "No","Yes";
         }
     }
 
@@ -56,7 +68,6 @@ table 70122 "Employees"
     {
         fieldgroup(DropDown; "Employee ID", "First Name", "Last Name", "Job Title", Department)
         {
-
         }
     }
 }
