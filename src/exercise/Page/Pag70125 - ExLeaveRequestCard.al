@@ -109,7 +109,6 @@ page 70125 "Ex Leave Requests Card"
                     if Rec."Start Date" > Rec."End Date" then
                         Error('Start Date must be before End Date.');
 
-                    Rec."Create At" := CurrentDateTime;
                     Rec."Status" := Rec."Status"::New;
                     Rec.Insert(true);
                     Message('Leave Request %1 has been saved.', Rec."Leave Request ID");
@@ -118,4 +117,10 @@ page 70125 "Ex Leave Requests Card"
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        Rec."Create At" := CurrentDateTime;
+        CurrPage.Update();
+    end;
 }

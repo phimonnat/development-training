@@ -66,6 +66,9 @@ page 70128 "Ex Leave Approval List"
 
                 trigger OnAction()
                 begin
+                    if Rec."Status" = Rec."Status"::Approved then
+                        Error('Leave Request %1 is already approved.');
+
                     Rec."Status" := Rec."Status"::Approved;
                     Rec."Status Changed Date" := CurrentDateTime;
                     Rec.Modify(true);
@@ -84,6 +87,9 @@ page 70128 "Ex Leave Approval List"
 
                 trigger OnAction()
                 begin
+                    if rec."Status" = Rec."Status"::Rejected then
+                        Error('Leave Request %1 is already reject.', Rec."Leave Request ID");
+
                     Rec."Status" := Rec."Status"::Rejected;
                     Rec."Status Changed Date" := CurrentDateTime;
                     Rec.Modify(true);
