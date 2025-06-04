@@ -12,10 +12,20 @@ table 70122 "Employees"
         field(2; "First Name"; Text[50])
         {
             Caption = 'First Name';
+
+            trigger OnValidate()
+            begin
+                Rec."Full Name" := Rec."First Name" + '' + Rec."Last Name";
+            end;
         }
         field(3; "Last Name"; Text[50])
         {
             Caption = 'Last Name';
+
+            trigger OnValidate()
+            begin
+                Rec."Full Name" := Rec."First Name" + '' + Rec."Last Name";
+            end;
         }
         field(4; "Email"; Text[100])
         {
@@ -53,6 +63,12 @@ table 70122 "Employees"
         field(9; "Is Manager"; Option)
         {
             OptionMembers = "No","Yes";
+        }
+        field(10; "Full Name"; Text[100])
+        {
+            Caption = 'Full Name';
+            FieldClass = Normal;
+            Editable = false;
         }
     }
 

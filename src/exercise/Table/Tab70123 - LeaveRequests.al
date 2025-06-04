@@ -23,7 +23,7 @@ table 70123 "LeaveRequests"
         field(4; "Leave Type"; Option)
         {
             Caption = 'Leave Type';
-            OptionMembers = "Sick Leave","Vacation","Casual Leave";
+            OptionMembers = "None","Sick Leave","Vacation","Casual Leave";
         }
         field(5; "Start Date"; Date)
         {
@@ -45,7 +45,8 @@ table 70123 "LeaveRequests"
         field(9; "Status"; Option)
         {
             Caption = 'Status';
-            OptionMembers = New,Pending,Approved,Rejected;
+            OptionMembers = Draft,Submitted,Pending,Approved,Rejected;
+            InitValue = Draft;
         }
         field(10; "Status Changed Date"; DateTime)
         {
