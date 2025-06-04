@@ -45,10 +45,6 @@ page 70129 "Ex Leave Approval Card"
                 {
                     ApplicationArea = All;
                 }
-                field("User ID"; Rec."User ID")
-                {
-                    ApplicationArea = All;
-                }
                 field("Create At"; Rec."Create At")
                 {
                     ApplicationArea = All;
@@ -79,14 +75,17 @@ page 70129 "Ex Leave Approval Card"
                 Image = Approve;
 
                 trigger OnAction()
+                var
+                    PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
                 begin
+                    PermissionMgt.CheckLeaveRequestApprovalPermission(Rec);
                     if Rec."Status" <> Rec."Status"::Submitted then
                         Error('Can only approve a submitted request. Current status: %1', Rec."Status");
                     if Rec."Status" = Rec."Status"::Approved then
                         Error('Leave Request %1 is already approved.', Rec."Leave Request ID");
 
                     Rec."Status" := Rec."Status"::Approved;
-                    Rec."Status Changed Date" := CurrentDateTime; // อัพเดทเมื่อ Approve
+                    Rec."Status Changed Date" := CurrentDateTime;
                     Rec.Modify(true);
                     Message('Leave Request %1 has been approved.', Rec."Leave Request ID");
                     CurrPage.Close();
@@ -102,14 +101,17 @@ page 70129 "Ex Leave Approval Card"
                 Image = Reject;
 
                 trigger OnAction()
+                var
+                    PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
                 begin
+                    PermissionMgt.CheckLeaveRequestApprovalPermission(Rec);
                     if Rec."Status" <> Rec."Status"::Submitted then
                         Error('Can only reject a submitted request. Current status: %1', Rec."Status");
                     if Rec."Status" = Rec."Status"::Rejected then
                         Error('Leave Request %1 is already rejected.', Rec."Leave Request ID");
 
                     Rec."Status" := Rec."Status"::Rejected;
-                    Rec."Status Changed Date" := CurrentDateTime; // อัพเดทเมื่อ Reject
+                    Rec."Status Changed Date" := CurrentDateTime;
                     Rec.Modify(true);
                     Message('Leave Request %1 has been rejected.', Rec."Leave Request ID");
                     CurrPage.Close();
@@ -117,4 +119,13 @@ page 70129 "Ex Leave Approval Card"
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
+    begin
+        PermissionMgt.CheckLeaveRequestApprovalPermission(Rec);
+        if Rec."Status" <> Rec."Status"::Submitted then
+            Message('This leave request has already been processed. Current status: %1', Rec."Status");
+    end;
 }

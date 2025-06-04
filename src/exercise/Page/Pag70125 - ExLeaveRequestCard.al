@@ -22,15 +22,21 @@ page 70125 "Ex Leave Requests Card"
                 {
                     ApplicationArea = All;
                     TableRelation = Employees."Employee ID";
+                    Editable = false;
 
                     trigger OnValidate()
                     var
                         Employee: Record "Employees";
+                        PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
                     begin
                         if Employee.Get(Rec."Employee ID") then begin
                             Rec."Manager ID" := Employee."Manager ID";
                             Rec."Employee Name" := Employee."Full Name";
+                        end else begin
+                            Rec."Manager ID" := 0;
+                            Rec."Employee Name" := '';
                         end;
+                        PermissionMgt.CheckLeaveRequestEditPermission(Rec);
                         CheckAndUpdateStatus();
                     end;
                 }
@@ -107,7 +113,10 @@ page 70125 "Ex Leave Requests Card"
                 PromotedIsBig = true;
 
                 trigger OnAction()
+                var
+                    PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
                 begin
+                    PermissionMgt.CheckLeaveRequestEditPermission(Rec);
                     if Rec."Status" <> Rec."Status"::Submitted then
                         Error('Please complete all required fields before saving.');
                     if Rec."Create At" = 0DT then
@@ -137,9 +146,12 @@ page 70125 "Ex Leave Requests Card"
     }
 
     trigger OnOpenPage()
+    var
+        PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
     begin
         if Rec."Leave Request ID" = 0 then
             Rec."Status" := Rec."Status"::Draft;
+        PermissionMgt.CheckLeaveRequestEditPermission(Rec);
         CurrPage.Update();
     end;
 
