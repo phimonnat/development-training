@@ -106,20 +106,43 @@ page 70128 "Ex Leave Approval List"
                     Message('Leave Request %1 has been rejected.', Rec."Leave Request ID");
                 end;
             }
+            action(ViewLeaveApprovalHistory)
+            {
+                Caption = 'View Leave Approval History';
+                ApplicationArea = All;
+                Image = History;
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                var
+                    LeaveApprovalHistory: Page "Leave Approval History";
+                    LeaveRequestsRec: Record "LeaveRequests";
+                begin
+                    LeaveRequestsRec.Copy(Rec);
+                    LeaveRequestsRec.SetRange("Manager ID", CurrentEmployeeId);
+                    LeaveApprovalHistory.SetTableView(LeaveRequestsRec);
+                    LeaveApprovalHistory.Run();
+                end;
+            }
         }
     }
 
     trigger OnOpenPage()
     var
         LoginPage: Page "Leave Request Login";
-        PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
+        LeaveApprovalContext: Codeunit "Leave Approval Context";
     begin
-        LoginPage.SetContext(true); // ตั้งค่าให้ใช้ Caption สำหรับฝั่งอนุมัติ
-        if LoginPage.RunModal() <> Action::OK then
-            Error('Login required to access this page.');
+        // Login ครั้งเดียวเมื่อเปิดหน้า
+        if LeaveApprovalContext.GetCurrentEmployeeId() = 0 then begin
+            LoginPage.SetContext(true);
+            if LoginPage.RunModal() <> Action::OK then
+                Error('Login required to access this page.');
 
-        CurrentEmployeeId := LoginPage.GetEmployeeId();
-        PermissionMgt.SetCurrentEmployeeId(CurrentEmployeeId);
+            LeaveApprovalContext.SetCurrentEmployeeId(LoginPage.GetEmployeeId());
+        end;
+
+        CurrentEmployeeId := LeaveApprovalContext.GetCurrentEmployeeId();
 
         Rec.SetRange("Status", Rec."Status"::Submitted);
         Rec.SetRange("Manager ID", CurrentEmployeeId);
