@@ -28,6 +28,7 @@ report 70133 "Leave Approval Report"
             column(ApprovedCount; ApprovedCount) { }
             column(RejectedCount; RejectedCount) { }
             column(PrintDate; PrintDate) { }
+            column(ManagerName; ManagerName) { }
 
             trigger OnPreDataItem()
             var
@@ -37,18 +38,30 @@ report 70133 "Leave Approval Report"
             begin
                 if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
                     case SelectedMonth of
-                        SelectedMonth::January: MonthNum := 1;
-                        SelectedMonth::February: MonthNum := 2;
-                        SelectedMonth::March: MonthNum := 3;
-                        SelectedMonth::April: MonthNum := 4;
-                        SelectedMonth::May: MonthNum := 5;
-                        SelectedMonth::June: MonthNum := 6;
-                        SelectedMonth::July: MonthNum := 7;
-                        SelectedMonth::August: MonthNum := 8;
-                        SelectedMonth::September: MonthNum := 9;
-                        SelectedMonth::October: MonthNum := 10;
-                        SelectedMonth::November: MonthNum := 11;
-                        SelectedMonth::December: MonthNum := 12;
+                        SelectedMonth::January:
+                            MonthNum := 1;
+                        SelectedMonth::February:
+                            MonthNum := 2;
+                        SelectedMonth::March:
+                            MonthNum := 3;
+                        SelectedMonth::April:
+                            MonthNum := 4;
+                        SelectedMonth::May:
+                            MonthNum := 5;
+                        SelectedMonth::June:
+                            MonthNum := 6;
+                        SelectedMonth::July:
+                            MonthNum := 7;
+                        SelectedMonth::August:
+                            MonthNum := 8;
+                        SelectedMonth::September:
+                            MonthNum := 9;
+                        SelectedMonth::October:
+                            MonthNum := 10;
+                        SelectedMonth::November:
+                            MonthNum := 11;
+                        SelectedMonth::December:
+                            MonthNum := 12;
                     end;
                     StartDate := DMY2Date(1, MonthNum, SelectedYear);
                     EndDate := CalcDate('CM', StartDate);
@@ -59,9 +72,18 @@ report 70133 "Leave Approval Report"
             end;
 
             trigger OnAfterGetRecord()
+            var
+                EmployeeRec: Record Employees;
             begin
-                if "Status Changed Date" <> 0DT then
+                if "Status Changed Date" <> 0DT then // ตรวจสอบ DateTime
                     StatusChangedMonth := Format(Date2DMY(DT2Date("Status Changed Date"), 2)) + ' ' + Format(Date2DMY(DT2Date("Status Changed Date"), 3));
+                // ดึง First Name จากตาราง Employees
+                if "Manager ID" <> 0 then begin // ใช้ 0 สำหรับ Integer
+                    if EmployeeRec.Get("Manager ID") then
+                        ManagerName := EmployeeRec."First Name"
+                    else
+                        ManagerName := '';
+                end;
             end;
         }
     }
@@ -133,4 +155,5 @@ report 70133 "Leave Approval Report"
         ApprovedCount: Integer;
         RejectedCount: Integer;
         PrintDate: Text;
+        ManagerName: Text;
 }
