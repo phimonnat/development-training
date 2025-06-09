@@ -13,646 +13,200 @@
   <ReportSections>
     <ReportSection>
       <Body>
-        <Height>3in</Height>
+        <Height>9in</Height>
         <ReportItems>
+          <Textbox Name="CompanyNameTextbox">
+            <Top>0.1in</Top>
+            <Left>0.2in</Left>
+            <Width>4in</Width>
+            <Height>0.4in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!CompanyName.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
+          <Textbox Name="ReportTitleTextbox">
+            <Top>0.6in</Top>
+            <Left>0.2in</Left>
+            <Width>8in</Width>
+            <Height>0.4in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ReportTitle.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
+          <Textbox Name="SummaryTextbox">
+            <Top>1.1in</Top>
+            <Left>0.2in</Left>
+            <Width>8in</Width>
+            <Height>0.3in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Summary: Approved = " &amp; Fields!ApprovedCount.Value &amp; ", Rejected = " &amp; Fields!RejectedCount.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
+          <Textbox Name="MonthGroupHeader">
+            <Top>1.5in</Top>
+            <Left>0.2in</Left>
+            <Width>8in</Width>
+            <Height>0.3in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Month: " &amp; Fields!StatusChangedMonth.Value &amp; " 2025"</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>5pt</PaddingLeft>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
+          <Textbox Name="StatusGroupHeader">
+            <Top>1.9in</Top>
+            <Left>0.2in</Left>
+            <Width>8in</Width>
+            <Height>0.3in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Status: " &amp; Fields!Status.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>5pt</PaddingLeft>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
+          <Textbox Name="ManagerInfoTextbox">
+            <Top>2.3in</Top>
+            <Left>0.2in</Left>
+            <Width>8in</Width>
+            <Height>0.3in</Height>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="This report is generated by: " &amp; Fields!EmployeeName.Value &amp; " (ID: " &amp; Fields!ManagerID.Value &amp; ")"</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Black</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <PaddingLeft>5pt</PaddingLeft>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Style>
+              <BackgroundColor>White</BackgroundColor>
+            </Style>
+          </Textbox>
           <Tablix Name="LeaveRequestsTablix">
+            <Top>2.7in</Top>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
                   <Width>0.9in</Width>
                 </TablixColumn>
-                <!-- Request ID -->
                 <TablixColumn>
                   <Width>0.9in</Width>
                 </TablixColumn>
-                <!-- Emp. ID -->
                 <TablixColumn>
                   <Width>1.3in</Width>
                 </TablixColumn>
-                <!-- Employee Name -->
+                <TablixColumn>
+                  <Width>1.3in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.0in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.0in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.0in</Width>
+                </TablixColumn>
                 <TablixColumn>
                   <Width>0.9in</Width>
                 </TablixColumn>
-                <!-- Leave Type -->
-                <TablixColumn>
-                  <Width>0.9in</Width>
-                </TablixColumn>
-                <!-- Start Date -->
-                <TablixColumn>
-                  <Width>0.9in</Width>
-                </TablixColumn>
-                <!-- End Date -->
-                <TablixColumn>
-                  <Width>0.9in</Width>
-                </TablixColumn>
-                <!-- Status -->
-                <TablixColumn>
-                  <Width>1in</Width>
-                </TablixColumn>
-                <!-- Manager ID -->
-                <TablixColumn>
-                  <Width>1in</Width>
-                </TablixColumn>
-                <!-- Action Date -->
               </TablixColumns>
               <TablixRows>
-                <TablixRow>
-                  <Height>0.4in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="LeaveRequestIDHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Request ID</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="EmployeeIDHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Emp. ID</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="EmployeeNameHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Employee Name</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="LeaveTypeHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Leave Type</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="StartDateHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Start Date</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="EndDateHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>End Date</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="StatusHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Status</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="ManagerIDHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Manager ID</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="StatusChangedDateHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Action Date</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#003087</BackgroundColor>
-                            <Border>
-                              <Color>White</Color>
-                              <Width>1pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.3in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="MonthGroupHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!StatusChangedMonth.Value</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>#003087</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <PaddingLeft>5pt</PaddingLeft>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#e8ecef</BackgroundColor>
-                            <Border>
-                              <Color>#4a5d75</Color>
-                              <Width>0.5pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder1">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder2">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder3">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder4">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder5">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder6">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder7">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder8">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.3in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder9">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder10">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder11">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder12">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder13">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder14">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="StatusGroupHeader">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Status.Value</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>#003087</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <BackgroundColor>#e8ecef</BackgroundColor>
-                            <Border>
-                              <Color>#4a5d75</Color>
-                              <Width>0.5pt</Width>
-                            </Border>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder15">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Placeholder16">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                </TextRun>
-                              </TextRuns>
-                            </Paragraph>
-                          </Paragraphs>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
                 <TablixRow>
                   <Height>0.3in</Height>
                   <TablixCells>
@@ -667,6 +221,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -677,10 +232,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -696,6 +251,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -706,10 +262,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -725,6 +281,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -736,10 +293,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -755,6 +312,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -765,10 +323,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -780,10 +338,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!StartDate.Value</Value>
+                                  <Value>=Format(Fields!StartDate.Value, "dd/MM/yyyy")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -794,10 +353,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -809,10 +368,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!EndDate.Value</Value>
+                                  <Value>=Format(Fields!EndDate.Value, "dd/MM/yyyy")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -823,10 +383,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -842,7 +402,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Color>=IIf(Fields!Status.Value = "Approved", "Green", "Red")</Color>
+                                    <Color>Black</Color>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -854,39 +414,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="ManagerIDDetail">
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!ManagerID.Value</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <Border>
-                              <Color>#4a5d75</Color>
-                              <Width>0.5pt</Width>
-                            </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -902,6 +433,7 @@
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Color>Black</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -912,10 +444,10 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>#4a5d75</Color>
+                              <Color>Black</Color>
                               <Width>0.5pt</Width>
                             </Border>
-                            <BackgroundColor>=IIf(Fields!Status.Value = "Approved", "#e6f4e6", "#f4e6e6")</BackgroundColor>
+                            <BackgroundColor>White</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -926,152 +458,306 @@
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="LeaveRequestIDHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Request ID</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="EmployeeIDHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Emp. ID</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="EmployeeNameHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Employee Name</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="LeaveTypeHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Leave Type</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="StartDateHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Start Date</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="EndDateHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>End Date</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="StatusHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Status</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.4in</Size>
+                    <CellContents>
+                      <Textbox Name="StatusChangedDateHeaderCol">
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Action Date</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                  <FontSize>10pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Black</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <Style>
+                          <BackgroundColor>White</BackgroundColor>
+                          <Border>
+                            <Color>Black</Color>
+                            <Width>1pt</Width>
+                          </Border>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
                 <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="MonthGroup">
+                  <Group Name="Details">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!StatusChangedMonth.Value</GroupExpression>
+                      <GroupExpression>=Fields!LeaveRequestID.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!StatusChangedMonth.Value</Value>
+                      <Value>=Fields!LeaveRequestID.Value</Value>
+                      <Direction>Ascending</Direction>
                     </SortExpression>
                   </SortExpressions>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="StatusGroup">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!Status.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!Status.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Details" />
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
+            <KeepTogether>true</KeepTogether>
           </Tablix>
         </ReportItems>
         <Style />
       </Body>
-      <Width>8.7in</Width>
-      <!-- ปรับให้เท่ากับความกว้างรวมของคอลัมน์ -->
+      <Width>8.4in</Width>
       <Page>
         <PageHeader>
-          <Height>1.5in</Height>
-          <ReportItems>
-            <Textbox Name="CompanyNameTextbox">
-              <Top>0.1in</Top>
-              <Left>0.2in</Left>
-              <Width>4in</Width>
-              <Height>0.4in</Height>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Fields!CompanyName.Value</Value>
-                      <Style>
-                        <FontFamily>Arial</FontFamily>
-                        <FontSize>14pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                        <Color>#003087</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                </Paragraph>
-              </Paragraphs>
-              <Style />
-            </Textbox>
-            <Textbox Name="ReportTitleTextbox">
-              <Top>0.6in</Top>
-              <Left>0.2in</Left>
-              <Width>8.3in</Width>
-              <Height>0.4in</Height>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Fields!ReportTitle.Value</Value>
-                      <Style>
-                        <FontFamily>Arial</FontFamily>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                        <Color>#003087</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Style>
-                <Border>
-                  <Color>#003087</Color>
-                  <Width>1pt</Width>
-                  <Style>Solid</Style>
-                </Border>
-                <BackgroundColor>#e8ecef</BackgroundColor>
-              </Style>
-            </Textbox>
-            <Textbox Name="SummaryTextbox">
-              <Top>1.1in</Top>
-              <Left>0.2in</Left>
-              <Width>8.3in</Width>
-              <Height>0.3in</Height>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Summary: Approved = " &amp; Fields!ApprovedCount.Value &amp; ", Rejected = " &amp; Fields!RejectedCount.Value &amp; "</Value>
-                      <Style>
-                        <FontFamily>Arial</FontFamily>
-                        <FontSize>10pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                        <Color>#003087</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Style>
-                <Border>
-                  <Color>#003087</Color>
-                  <Width>1pt</Width>
-                  <Style>Solid</Style>
-                </Border>
-                <BackgroundColor>#f0f0f0</BackgroundColor>
-              </Style>
-            </Textbox>
-          </ReportItems>
-          <Style />
-        </PageHeader>
-        <PageFooter>
           <Height>0.5in</Height>
           <ReportItems>
             <Textbox Name="PageNumberTextbox">
@@ -1087,7 +773,7 @@
                       <Style>
                         <FontFamily>Arial</FontFamily>
                         <FontSize>8pt</FontSize>
-                        <Color>#003087</Color>
+                        <Color>Black</Color>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -1096,7 +782,9 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Style />
+              <Style>
+                <BackgroundColor>White</BackgroundColor>
+              </Style>
             </Textbox>
             <Textbox Name="PrintDateTextbox">
               <Top>0.1in</Top>
@@ -1111,7 +799,7 @@
                       <Style>
                         <FontFamily>Arial</FontFamily>
                         <FontSize>8pt</FontSize>
-                        <Color>#003087</Color>
+                        <Color>Black</Color>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -1120,19 +808,22 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Style />
+              <Style>
+                <BackgroundColor>White</BackgroundColor>
+              </Style>
             </Textbox>
           </ReportItems>
           <Style />
+        </PageHeader>
+        <PageFooter>
+          <Height>0in</Height>
         </PageFooter>
         <LeftMargin>0.25in</LeftMargin>
         <RightMargin>0.25in</RightMargin>
         <TopMargin>0.25in</TopMargin>
         <BottomMargin>0.25in</BottomMargin>
         <PageWidth>9in</PageWidth>
-        <!-- เปลี่ยนจาก Width เป็น PageWidth -->
         <PageHeight>11in</PageHeight>
-        <!-- เพิ่ม PageHeight เพื่อให้ครบตาม Schema -->
         <Style />
       </Page>
     </ReportSection>

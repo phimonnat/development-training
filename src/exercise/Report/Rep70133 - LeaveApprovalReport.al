@@ -35,7 +35,6 @@ report 70133 "Leave Approval Report"
                 EndDate: Date;
                 MonthNum: Integer;
             begin
-                SetFilter(Status, '%1|%2', Status::Approved, Status::Rejected);
                 if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
                     case SelectedMonth of
                         SelectedMonth::January:
@@ -126,18 +125,14 @@ report 70133 "Leave Approval Report"
     begin
         ApprovedCount := 0;
         RejectedCount := 0;
-        if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
-            LeaveRequestsRec.CopyFilters(LeaveRequests);
-            LeaveRequestsRec.SetRange("Status Changed Date", CreateDateTime(DMY2Date(1, SelectedMonth, SelectedYear), 0T), CreateDateTime(CalcDate('CM', DMY2Date(1, SelectedMonth, SelectedYear)), 235959T));
-            if LeaveRequestsRec.FindSet() then begin
-                repeat
-                    if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Approved then
-                        ApprovedCount += 1
-                    else
-                        if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Rejected then
-                            RejectedCount += 1;
-                until LeaveRequestsRec.Next() = 0;
-            end;
+        LeaveRequestsRec.CopyFilters(LeaveRequests); // ใช้ฟิลเตอร์ทั้งหมดจาก Business Central
+        if LeaveRequestsRec.FindSet() then begin
+            repeat
+                if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Approved then
+                    ApprovedCount += 1
+                else if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Rejected then
+                    RejectedCount += 1;
+            until LeaveRequestsRec.Next() = 0;
         end;
     end;
 
