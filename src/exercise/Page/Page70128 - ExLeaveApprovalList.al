@@ -132,22 +132,35 @@ page 70128 "Ex Leave Approval List"
     var
         LoginPage: Page "Leave Request Login";
         LeaveApprovalContext: Codeunit "Leave Approval Context";
+        Employee: Record "Employees";
     begin
-        // Login ครั้งเดียวเมื่อเปิดหน้า
-        if LeaveApprovalContext.GetCurrentEmployeeId() = 0 then begin
-            LoginPage.SetContext(true);
-            if LoginPage.RunModal() <> Action::OK then
-                Error('Login required to access this page.');
+        //reset context บังคับ Login ใหม่
+        LeaveApprovalContext.ClearContext();
 
-            LeaveApprovalContext.SetCurrentEmployeeId(LoginPage.GetEmployeeId());
-        end;
+        //เรียกหน้า Login 
+        LoginPage.SetContext(true);
+        if LoginPage.RunModal() <> Action::OK then
+            Error('Login required to access this page.');
 
-        CurrentEmployeeId := LeaveApprovalContext.GetCurrentEmployeeId();
+        CurrentEmployeeId := LoginPage.GetEmployeeId();
+        LeaveApprovalContext.SetCurrentEmployeeId(CurrentEmployeeId);
+
+        //checkว่าเป็น manager
+        if not Employee.Get(CurrentEmployeeId) or (Employee."Is Manager" <> Employee."Is Manager"::Yes) then
+            Error('Only managers can access the Leave Approval List.');
 
         Rec.SetRange("Status", Rec."Status"::Submitted);
         Rec.SetRange("Manager ID", CurrentEmployeeId);
         if Rec.IsEmpty then
             Message('No leave requests awaiting approval for Manager ID %1.', CurrentEmployeeId);
+    end;
+
+    trigger OnClosePage()
+    var
+        LeaveApprovalContext: Codeunit "Leave Approval Context";
+    begin
+        //clear context
+        LeaveApprovalContext.ClearContext();
     end;
 
     var

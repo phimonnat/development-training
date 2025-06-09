@@ -133,8 +133,10 @@ page 70124 "Ex Leave Requests Page"
     trigger OnOpenPage()
     var
         LoginPage: Page "Leave Request Login";
+        LeaveApprovalContext: Codeunit "Leave Approval Context";
         PermissionMgt: Codeunit "LeaveRequestPermissionMgt";
     begin
+        LeaveApprovalContext.ClearContext(); //clear session 
         if LoginPage.RunModal() <> Action::OK then
             Error('Login required to access this page.');
 
@@ -146,6 +148,11 @@ page 70124 "Ex Leave Requests Page"
         else
             Rec.SetRange("Employee ID", CurrentEmployeeId);
         CurrPage.Update(false);
+    end;
+
+    trigger OnClosePage()
+    begin
+
     end;
 
     local procedure IsManager(EmployeeId: Integer): Boolean

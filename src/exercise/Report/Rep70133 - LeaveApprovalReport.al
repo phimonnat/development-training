@@ -66,7 +66,6 @@ report 70133 "Leave Approval Report"
                     EndDate := CalcDate('CM', StartDate);
                     SetRange("Status Changed Date", CreateDateTime(StartDate, 0T), CreateDateTime(EndDate, 235959T));
                 end;
-                // คำนวณ Summary
                 CalcSummary();
             end;
 
@@ -104,19 +103,30 @@ report 70133 "Leave Approval Report"
 
         trigger OnOpenPage()
         begin
-            SelectedMonth := SelectedMonth::May;
+            SelectedMonth := SelectedMonth::June;
             SelectedYear := 2025;
         end;
     }
 
     trigger OnPreReport()
+    var
+        LeaveApprovalContext: Codeunit "Leave Approval Context";
     begin
         CompanyInfo.Get();
         ReportTitle := 'Leave Approval Report';
-        if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
+        if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then
             ReportTitle := ReportTitle + ' - ' + Format(SelectedMonth) + ' ' + Format(SelectedYear);
-        end;
         PrintDate := Format(CurrentDateTime, 0, '<Day,2>/<Month,2>/<Year4> <Hours24>:<Minutes,2>');
+
+        if LeaveApprovalContext.GetCurrentEmployeeId() = 0 then
+            Error('Please login from the Leave Approval List page first.');
+    end;
+
+    trigger OnPostReport()
+    var
+        LeaveApprovalContext: Codeunit "Leave Approval Context";
+    begin
+        LeaveApprovalContext.ClearContext();
     end;
 
     local procedure CalcSummary()
@@ -125,7 +135,7 @@ report 70133 "Leave Approval Report"
     begin
         ApprovedCount := 0;
         RejectedCount := 0;
-        LeaveRequestsRec.CopyFilters(LeaveRequests); // ใช้ฟิลเตอร์ทั้งหมดจาก Business Central
+        LeaveRequestsRec.CopyFilters(LeaveRequests); // ใช้ filter ทั้งหมดจาก Business Central
         if LeaveRequestsRec.FindSet() then begin
             repeat
                 if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Approved then
