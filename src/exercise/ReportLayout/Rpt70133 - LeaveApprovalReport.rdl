@@ -22,67 +22,6 @@
       <rd:DataSourceID>aadc54a1-128c-441e-8ba0-426296e6d681</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="LeaveRequestID">
-          <DataField>LeaveRequestID</DataField>
-        </Field>
-        <Field Name="EmployeeID">
-          <DataField>EmployeeID</DataField>
-        </Field>
-        <Field Name="EmployeeName">
-          <DataField>EmployeeName</DataField>
-        </Field>
-        <Field Name="LeaveType">
-          <DataField>LeaveType</DataField>
-        </Field>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="CreateAt">
-          <DataField>CreateAt</DataField>
-        </Field>
-        <Field Name="ManagerID">
-          <DataField>ManagerID</DataField>
-        </Field>
-        <Field Name="StatusChangedDate">
-          <DataField>StatusChangedDate</DataField>
-        </Field>
-        <Field Name="StatusChangedMonth">
-          <DataField>StatusChangedMonth</DataField>
-        </Field>
-        <Field Name="ReportTitle">
-          <DataField>ReportTitle</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="ApprovedCount">
-          <DataField>ApprovedCount</DataField>
-        </Field>
-        <Field Name="RejectedCount">
-          <DataField>RejectedCount</DataField>
-        </Field>
-        <Field Name="PrintDate">
-          <DataField>PrintDate</DataField>
-        </Field>
-        <Field Name="ManagerName">
-          <DataField>ManagerName</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -822,14 +761,69 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="LeaveRequestID">
+          <DataField>LeaveRequestID</DataField>
+        </Field>
+        <Field Name="EmployeeID">
+          <DataField>EmployeeID</DataField>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+        </Field>
+        <Field Name="LeaveType">
+          <DataField>LeaveType</DataField>
+        </Field>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+        </Field>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="CreateAt">
+          <DataField>CreateAt</DataField>
+        </Field>
+        <Field Name="ManagerID">
+          <DataField>ManagerID</DataField>
+        </Field>
+        <Field Name="StatusChangedDate">
+          <DataField>StatusChangedDate</DataField>
+        </Field>
+        <Field Name="StatusChangedMonth">
+          <DataField>StatusChangedMonth</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ApprovedCount">
+          <DataField>ApprovedCount</DataField>
+        </Field>
+        <Field Name="RejectedCount">
+          <DataField>RejectedCount</DataField>
+        </Field>
+        <Field Name="PrintDate">
+          <DataField>PrintDate</DataField>
+        </Field>
+        <Field Name="ManagerName">
+          <DataField>ManagerName</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

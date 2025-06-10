@@ -10,8 +10,6 @@ report 70133 "Leave Approval Report"
     {
         dataitem(LeaveRequests; "LeaveRequests")
         {
-            RequestFilterFields = "Manager ID";
-
             column(LeaveRequestID; "Leave Request ID") { }
             column(EmployeeID; "Employee ID") { }
             column(EmployeeName; "Employee Name") { }
@@ -35,7 +33,32 @@ report 70133 "Leave Approval Report"
                 StartDate: Date;
                 EndDate: Date;
                 MonthNum: Integer;
+                StatusFilterText: Text;
             begin
+                // ใช้ Manager ID จาก Parameter
+                if ManagerID <> 0 then
+                    SetRange("Manager ID", ManagerID);
+
+                // สร้าง Filter สำหรับสถานะตามที่ถูกติ๊ก
+                StatusFilterText := '';
+                if IsDraft then
+                    StatusFilterText := StatusFilterText + '|Draft';
+                if IsSubmitted then
+                    StatusFilterText := StatusFilterText + '|Submitted';
+                if IsApproved then
+                    StatusFilterText := StatusFilterText + '|Approved';
+                if IsRejected then
+                    StatusFilterText := StatusFilterText + '|Rejected';
+
+                if StatusFilterText <> '' then begin
+                    if StrLen(StatusFilterText) > 1 then
+                        StatusFilterText := CopyStr(StatusFilterText, 2);
+                    if StatusFilterText <> '' then
+                        SetFilter(Status, StatusFilterText);
+                end else begin
+                    SetFilter(Status, '%1|%2', Status::Approved, Status::Rejected);
+                end;
+
                 if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
                     case SelectedMonth of
                         SelectedMonth::January:
@@ -67,7 +90,7 @@ report 70133 "Leave Approval Report"
                     EndDate := CalcDate('CM', StartDate);
                     SetRange("Status Changed Date", CreateDateTime(StartDate, 0T), CreateDateTime(EndDate, 235959T));
                 end else
-                    SetRange("Status Changed Date"); // ไม่กรอง Status
+                    SetRange("Status Changed Date");
                 CalcSummary();
             end;
 
@@ -75,10 +98,10 @@ report 70133 "Leave Approval Report"
             var
                 EmployeeRec: Record Employees;
             begin
-                if "Status Changed Date" <> 0DT then // ตรวจสอบ DateTime
+                if "Status Changed Date" <> 0DT then
                     StatusChangedMonth := Format(Date2DMY(DT2Date("Status Changed Date"), 2)) + ' ' + Format(Date2DMY(DT2Date("Status Changed Date"), 3));
-                // ดึง First Name จากตาราง Employees
-                if "Manager ID" <> 0 then begin // ใช้ 0 สำหรับ Integer
+
+                if "Manager ID" <> 0 then begin
                     if EmployeeRec.Get("Manager ID") then
                         ManagerName := EmployeeRec."First Name"
                     else
@@ -108,6 +131,30 @@ report 70133 "Leave Approval Report"
                         ApplicationArea = All;
                         Caption = 'Select Year';
                     }
+                    group(StatusSelection)
+                    {
+                        Caption = 'Select Status';
+                        field(IsDraft; IsDraft)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Draft';
+                        }
+                        field(IsSubmitted; IsSubmitted)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Submitted';
+                        }
+                        field(IsApproved; IsApproved)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Approved';
+                        }
+                        field(IsRejected; IsRejected)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Rejected';
+                        }
+                    }
                 }
             }
         }
@@ -116,6 +163,8 @@ report 70133 "Leave Approval Report"
         begin
             SelectedMonth := SelectedMonth::June;
             SelectedYear := 2025;
+            IsApproved := true; // ค่าเริ่มต้นตามหน้า 70132
+            IsRejected := true; // ค่าเริ่มต้นตามหน้า 70132
         end;
     }
 
@@ -146,9 +195,19 @@ report 70133 "Leave Approval Report"
             until LeaveRequestsRec.Next() = 0;
     end;
 
+    // Parameters
+    procedure SetManagerID(ID: Integer)
+    begin
+        ManagerID := ID;
+    end;
+
     var
         SelectedMonth: Option " ","January","February","March","April","May","June","July","August","September","October","November","December";
         SelectedYear: Integer;
+        IsDraft: Boolean;
+        IsSubmitted: Boolean;
+        IsApproved: Boolean;
+        IsRejected: Boolean;
         StatusChangedMonth: Text;
         ReportTitle: Text;
         CompanyInfo: Record "Company Information";
@@ -156,4 +215,5 @@ report 70133 "Leave Approval Report"
         RejectedCount: Integer;
         PrintDate: Text;
         ManagerName: Text;
+        ManagerID: Integer;
 }

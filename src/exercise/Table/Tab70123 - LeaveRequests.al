@@ -45,7 +45,7 @@ table 70123 "LeaveRequests"
         field(9; "Status"; Option)
         {
             Caption = 'Status';
-            OptionMembers = Draft,Submitted,Pending,Approved,Rejected;
+            OptionMembers = Draft,Submitted,Approved,Rejected;
             InitValue = Draft;
         }
         field(10; "Status Changed Date"; DateTime)

@@ -72,11 +72,16 @@ page 70132 "Leave Approval History"
                 trigger OnAction()
                 var
                     LeaveApprovalReport: Report "Leave Approval Report";
-                    LeaveRequestsRec: Record "LeaveRequests";
+                    LeaveApprovalContext: Codeunit "Leave Approval Context";
+                    CurrentManagerID: Integer;
                 begin
-                    LeaveRequestsRec.CopyFilters(Rec); // copy filter from page
-                    LeaveRequestsRec.SetRange("Manager ID", CurrentEmployeeId); // filter Manager ID
-                    LeaveApprovalReport.SetTableView(LeaveRequestsRec);
+                    // บังคับใช้ Manager ID จาก Context
+                    CurrentManagerID := LeaveApprovalContext.GetCurrentEmployeeId();
+                    if CurrentManagerID = 0 then
+                        Error('Please login from the Leave Approval List page first.');
+
+                    // ส่ง Parameter ไปยัง Report
+                    LeaveApprovalReport.SetManagerID(CurrentManagerID);
                     LeaveApprovalReport.RunModal();
                 end;
             }
@@ -92,7 +97,7 @@ page 70132 "Leave Approval History"
 
         CurrentEmployeeId := LeaveApprovalContext.GetCurrentEmployeeId();
         Rec.SetRange("Manager ID", CurrentEmployeeId);
-        Rec.SetFilter("Status", '%1|%2', Rec."Status"::Approved, Rec."Status"::Rejected);
+        Rec.SetFilter("Status", '%1|%2', Rec.Status::Approved, Rec.Status::Rejected);
     end;
 
     trigger OnClosePage()
