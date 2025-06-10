@@ -10,6 +10,8 @@ report 70133 "Leave Approval Report"
     {
         dataitem(LeaveRequests; "LeaveRequests")
         {
+            RequestFilterFields = Status; // ใช้ Status เป็น Filter
+
             column(LeaveRequestID; "Leave Request ID") { }
             column(EmployeeID; "Employee ID") { }
             column(EmployeeName; "Employee Name") { }
@@ -33,31 +35,14 @@ report 70133 "Leave Approval Report"
                 StartDate: Date;
                 EndDate: Date;
                 MonthNum: Integer;
-                StatusFilterText: Text;
             begin
                 // ใช้ Manager ID จาก Parameter
                 if ManagerID <> 0 then
                     SetRange("Manager ID", ManagerID);
 
-                // สร้าง Filter สำหรับสถานะตามที่ถูกติ๊ก
-                StatusFilterText := '';
-                if IsDraft then
-                    StatusFilterText := StatusFilterText + '|Draft';
-                if IsSubmitted then
-                    StatusFilterText := StatusFilterText + '|Submitted';
-                if IsApproved then
-                    StatusFilterText := StatusFilterText + '|Approved';
-                if IsRejected then
-                    StatusFilterText := StatusFilterText + '|Rejected';
-
-                if StatusFilterText <> '' then begin
-                    if StrLen(StatusFilterText) > 1 then
-                        StatusFilterText := CopyStr(StatusFilterText, 2);
-                    if StatusFilterText <> '' then
-                        SetFilter(Status, StatusFilterText);
-                end else begin
+                // ตั้งค่าเริ่มต้นการกรองสถานะเป็น Approved และ Rejected
+                if GetFilter(Status) = '' then
                     SetFilter(Status, '%1|%2', Status::Approved, Status::Rejected);
-                end;
 
                 if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
                     case SelectedMonth of
@@ -131,30 +116,6 @@ report 70133 "Leave Approval Report"
                         ApplicationArea = All;
                         Caption = 'Select Year';
                     }
-                    group(StatusSelection)
-                    {
-                        Caption = 'Select Status';
-                        field(IsDraft; IsDraft)
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Draft';
-                        }
-                        field(IsSubmitted; IsSubmitted)
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Submitted';
-                        }
-                        field(IsApproved; IsApproved)
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Approved';
-                        }
-                        field(IsRejected; IsRejected)
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Rejected';
-                        }
-                    }
                 }
             }
         }
@@ -163,8 +124,10 @@ report 70133 "Leave Approval Report"
         begin
             SelectedMonth := SelectedMonth::June;
             SelectedYear := 2025;
-            IsApproved := true; // ค่าเริ่มต้นตามหน้า 70132
-            IsRejected := true; // ค่าเริ่มต้นตามหน้า 70132
+            // ตั้งค่าเริ่มต้นการกรองสถานะใน Filter
+            CurrReport.SetTableView(LeaveRequests);
+            if LeaveRequests.GetFilter(Status) = '' then
+                LeaveRequests.SetFilter(Status, '%1|%2', LeaveRequests.Status::Approved, LeaveRequests.Status::Rejected);
         end;
     }
 
@@ -204,10 +167,6 @@ report 70133 "Leave Approval Report"
     var
         SelectedMonth: Option " ","January","February","March","April","May","June","July","August","September","October","November","December";
         SelectedYear: Integer;
-        IsDraft: Boolean;
-        IsSubmitted: Boolean;
-        IsApproved: Boolean;
-        IsRejected: Boolean;
         StatusChangedMonth: Text;
         ReportTitle: Text;
         CompanyInfo: Record "Company Information";
