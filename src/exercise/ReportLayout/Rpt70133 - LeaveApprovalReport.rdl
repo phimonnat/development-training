@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-06-09T08:38:49.4925368Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-06-11T07:17:41.3982707Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -54,7 +54,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Summary: Approved = " &amp; Fields!ApprovedCount.Value &amp; ", Rejected = " &amp; Fields!RejectedCount.Value</Value>
+                    <Value>="Summary: Approved = " &amp; Fields!ApprovedCount.Value &amp; ", Rejected = " &amp; Fields!RejectedCount.Value &amp; ", Submitted = " &amp; Fields!SubmittedCount.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -294,7 +294,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -594,7 +594,7 @@
             <Top>1.66875in</Top>
             <Left>0.47625cm</Left>
             <Height>0.5125in</Height>
-            <Width>8.11875in</Width>
+            <Width>8.11877in</Width>
             <ZIndex>2</ZIndex>
             <Style />
           </Tablix>
@@ -812,6 +812,9 @@
         </Field>
         <Field Name="RejectedCount">
           <DataField>RejectedCount</DataField>
+        </Field>
+        <Field Name="SubmittedCount">
+          <DataField>SubmittedCount</DataField>
         </Field>
         <Field Name="PrintDate">
           <DataField>PrintDate</DataField>

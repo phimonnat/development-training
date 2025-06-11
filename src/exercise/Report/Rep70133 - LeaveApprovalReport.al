@@ -10,7 +10,7 @@ report 70133 "Leave Approval Report"
     {
         dataitem(LeaveRequests; "LeaveRequests")
         {
-            RequestFilterFields = Status; // ใช้ Status เป็น Filter
+            RequestFilterFields = Status;
 
             column(LeaveRequestID; "Leave Request ID") { }
             column(EmployeeID; "Employee ID") { }
@@ -27,6 +27,7 @@ report 70133 "Leave Approval Report"
             column(CompanyName; CompanyInfo.Name) { }
             column(ApprovedCount; ApprovedCount) { }
             column(RejectedCount; RejectedCount) { }
+            column(SubmittedCount; SubmittedCount) { }
             column(PrintDate; PrintDate) { }
             column(ManagerName; ManagerName) { }
 
@@ -35,14 +36,23 @@ report 70133 "Leave Approval Report"
                 StartDate: Date;
                 EndDate: Date;
                 MonthNum: Integer;
+                StatusFilter: Text;
+                HasApproved: Boolean;
+                HasRejected: Boolean;
+                HasSubmitted: Boolean;
             begin
-                // ใช้ Manager ID จาก Parameter
                 if ManagerID <> 0 then
                     SetRange("Manager ID", ManagerID);
 
-                // ตั้งค่าเริ่มต้นการกรองสถานะเป็น Approved และ Rejected
-                if GetFilter(Status) = '' then
-                    SetFilter(Status, '%1|%2', Status::Approved, Status::Rejected);
+                StatusFilter := GetFilter(Status);
+                if StatusFilter = '' then
+                    SetFilter(Status, '%1|%2|%3', Status::Approved, Status::Rejected, Status::Submitted)
+                else begin
+                    SetFilter(Status, StatusFilter);
+                    HasSubmitted := StatusFilter.Contains(Format(Status::Submitted));
+                    HasApproved := StatusFilter.Contains(Format(Status::Approved));
+                    HasRejected := StatusFilter.Contains(Format(Status::Rejected));
+                end;
 
                 if (SelectedMonth <> SelectedMonth::" ") and (SelectedYear <> 0) then begin
                     case SelectedMonth of
@@ -71,11 +81,17 @@ report 70133 "Leave Approval Report"
                         SelectedMonth::December:
                             MonthNum := 12;
                     end;
+
                     StartDate := DMY2Date(1, MonthNum, SelectedYear);
                     EndDate := CalcDate('CM', StartDate);
-                    SetRange("Status Changed Date", CreateDateTime(StartDate, 0T), CreateDateTime(EndDate, 235959T));
+
+                    if StatusFilter = '' then
+                        SetRange("Status Changed Date")
+                    else if not HasSubmitted then
+                        SetRange("Status Changed Date", CreateDateTime(StartDate, 0T), CreateDateTime(EndDate, 235959T));
                 end else
                     SetRange("Status Changed Date");
+
                 CalcSummary();
             end;
 
@@ -124,10 +140,10 @@ report 70133 "Leave Approval Report"
         begin
             SelectedMonth := SelectedMonth::June;
             SelectedYear := 2025;
-            // ตั้งค่าเริ่มต้นการกรองสถานะใน Filter
+
             CurrReport.SetTableView(LeaveRequests);
             if LeaveRequests.GetFilter(Status) = '' then
-                LeaveRequests.SetFilter(Status, '%1|%2', LeaveRequests.Status::Approved, LeaveRequests.Status::Rejected);
+                LeaveRequests.SetFilter(Status, '%1|%2|%3', LeaveRequests.Status::Approved, LeaveRequests.Status::Rejected, LeaveRequests.Status::Submitted);
         end;
     }
 
@@ -148,13 +164,28 @@ report 70133 "Leave Approval Report"
     begin
         ApprovedCount := 0;
         RejectedCount := 0;
+        SubmittedCount := 0;
+
         LeaveRequestsRec.CopyFilters(LeaveRequests);
+
         if LeaveRequestsRec.FindSet() then
             repeat
-                if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Approved then
-                    ApprovedCount += 1
-                else if LeaveRequestsRec.Status = LeaveRequestsRec.Status::Rejected then
-                    RejectedCount += 1;
+                case LeaveRequestsRec.Status of
+                    LeaveRequestsRec.Status::Approved:
+                        ApprovedCount += 1;
+                    LeaveRequestsRec.Status::Rejected:
+                        RejectedCount += 1;
+                end;
+            until LeaveRequestsRec.Next() = 0;
+
+        LeaveRequestsRec.Reset();
+        LeaveRequestsRec.SetRange(Status, LeaveRequestsRec.Status::Submitted);
+        if LeaveRequests.GetRangeMin("Manager ID") <> 0 then
+            LeaveRequestsRec.SetRange("Manager ID", LeaveRequests.GetRangeMin("Manager ID"));
+        LeaveRequestsRec.SetRange("Status Changed Date");
+        if LeaveRequestsRec.FindSet() then
+            repeat
+                SubmittedCount += 1;
             until LeaveRequestsRec.Next() = 0;
     end;
 
@@ -172,6 +203,7 @@ report 70133 "Leave Approval Report"
         CompanyInfo: Record "Company Information";
         ApprovedCount: Integer;
         RejectedCount: Integer;
+        SubmittedCount: Integer;
         PrintDate: Text;
         ManagerName: Text;
         ManagerID: Integer;
